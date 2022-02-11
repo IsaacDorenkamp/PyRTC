@@ -1,3 +1,6 @@
+# 1.0.4: February 11, 2022
+- ReadTheDocs build fix
+
 # 1.0.3: February 11, 2022
 - Fixed minor inconsistency where TransceiverManager.close_all() would not return an awaitable
   when in async mode
