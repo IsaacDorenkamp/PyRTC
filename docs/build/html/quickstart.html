@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart &mdash; PyRTC 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Welcome to PyRTC’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PyRTC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-simple-back-end">A Simple Back-End</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-minimal-client">A Minimal Client</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyRTC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>To install pyrtc, simply use pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pyrtc
+</pre></div>
+</div>
+</section>
+<section id="a-simple-back-end">
+<h2>A Simple Back-End<a class="headerlink" href="#a-simple-back-end" title="Permalink to this headline"></a></h2>
+<p>PyRTC is essentially a pre-packaged WebRTC signalling back-end
+with a Pythonic, object-oriented approach that leaves a lot of
+flexibility for developers trying to build real-time communication
+applications using WebRTC. Here, I will provide a summary of the
+included <code class="docutils literal notranslate"><span class="pre">pyrtc.test</span></code> module, a fully-functional test server that
+uses the WebSocket protocol for data transfer, and demonstrate
+the creation of a simple JavaScript application using a client-side
+library that I also wrote using the same event-based negotiation
+scheme as PyRTC. Let’s begin with the first lines of <code class="docutils literal notranslate"><span class="pre">main</span></code> in
+test.py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pools</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">serv</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">serv</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">serv</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+<span class="n">serv</span><span class="o">.</span><span class="n">setblocking</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">serv</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These lines are largely straightforward: here, we are creating
+a PoolManager with private set to False, as for testing, we want
+to automatically create a pool if one does not exist. The lines after
+that are pretty boilerplate, setting up a server socket with an
+added line to tell the socket that the address should be reusable
+so that if you were to stop and restart the program, there would
+be no TIME_WAIT on the underlying TCP layer preventing the socket
+from binding to 0.0.0.0 on the specified port for a significant period
+of time. Next:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mgr</span> <span class="o">=</span> <span class="n">sockmanager</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="k">with</span> <span class="n">clean_exit</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">close</span><span class="p">,</span> <span class="n">serv</span><span class="p">,</span> <span class="n">pools</span><span class="p">),</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>sockmanager is a helper class defined earlier in test.py that allows us
+to add Websockets to it (which we use in the later lines to loop through
+all connected Websockets and handle our own custom event from the
+WebSocket), and ‘clean_exit’ is a helper context manager used to automatically
+clean up resources and cleanly exit on an error or KeyboardInterrupt. These are
+not important for understanding the more relevant concepts. The meat and
+potatoes of our code begins here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="o">...</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">can_accept</span><span class="p">(</span><span class="n">serv</span><span class="p">):</span>
+                        <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">serv</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                        <span class="n">trans</span> <span class="o">=</span> <span class="n">transceiver</span><span class="o">.</span><span class="n">WebsocketTransceiver</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+                        <span class="n">wsock</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">socket</span>
+                        <span class="n">wsock</span><span class="o">.</span><span class="n">receiver</span> <span class="o">=</span> <span class="n">transport</span><span class="o">.</span><span class="n">EventReceiver</span><span class="p">()</span>
+                        <span class="n">wsock</span><span class="o">.</span><span class="n">transceiver</span> <span class="o">=</span> <span class="n">trans</span>
+                        <span class="n">wsock</span><span class="o">.</span><span class="n">add_receiver</span><span class="p">(</span><span class="n">wsock</span><span class="o">.</span><span class="n">receiver</span><span class="p">)</span>
+                        <span class="n">mgr</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">wsock</span><span class="p">)</span>
+                        <span class="n">pools</span><span class="o">.</span><span class="n">add_endpoint</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+
+                <span class="n">pools</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">sock</span> <span class="ow">in</span> <span class="n">mgr</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">sock</span><span class="o">.</span><span class="n">receiver</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;describe&quot;</span><span class="p">:</span>
+                                        <span class="n">sp</span> <span class="o">=</span> <span class="n">pools</span><span class="o">.</span><span class="n">get_pool_for</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">transceiver</span><span class="p">)</span>
+                                        <span class="n">sp</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">transceiver</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.01</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Above is our mainloop. We loop forever (until KeyboardInterrupt, that is),
+and in each iteration, we check if we can accept new connections. If we can,
+we accept them and create a <code class="xref py py-class docutils literal notranslate"><span class="pre">WebsocketTransceiver</span></code> around each one. In the
+following lines, we create our own EventReceiver and register it with the
+socket, thereby exposing all received events to an <code class="xref py py-class docutils literal notranslate"><span class="pre">EventReceiver</span></code> that we can
+access. Then, the most important part: we add the transceiver to the PoolManager.
+After this point, the PoolManager will catch all RTC negotiation events received
+and process them with each call to <code class="xref py py-meth docutils literal notranslate"><span class="pre">PoolManager.update()</span></code>.</p>
+<p>After accepting and configuring new connections, we tell <code class="docutils literal notranslate"><span class="pre">pools</span></code> to update.
+This is the bare minimum for RTC negotiations! The for-loop that follows is an
+extra convenience for testing, not necessary for RTC negotiations. Essentially,
+it catches all “describe” events and sets the description of the endpoint that
+sent it to whatever JSON data was sent as the event data. After this, we do a
+standard time.sleep() to give the CPU a break. And that’s it! That’s the RTC
+server code.</p>
+</section>
+<section id="a-minimal-client">
+<h2>A Minimal Client<a class="headerlink" href="#a-minimal-client" title="Permalink to this headline"></a></h2>
+<p>I’m not here to tell you how to build the next Skype, Discord, or Microsoft Teams.
+What I can do is show you how to make a simple video chat app that sufficiently
+demonstrates how to put the front-end (rtcpool) to use along with the back-end (PyRTC).</p>
+<p>So, let’s get started! Create a directory for our mini project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir minirtc
+$ cd minirtc
+</pre></div>
+</div>
+<p>We’ll be using npm, so let’s start with the usual:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ npm init
+</pre></div>
+</div>
+<p>Answer all the prompts, and then we can really get moving.
+While the Python test server is a complete RTC signalling
+Websocket server, it doesn’t serve HTTP or provide the rtcpool
+package. So we’ll spin up a basic express.js server to do what we
+need. We’ll also need to get browserify for including rtcpool in
+the client-side scripts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ npm i rtcpool express browserify
+</pre></div>
+</div>
+<p>Easy. Let’s get started. Open up an editor window and enter this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="kd">const</span> <span class="nx">browserify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;browserify&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="nx">browserify</span><span class="p">(</span><span class="s2">&quot;client.js&quot;</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/client.js&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">script</span><span class="p">.</span><span class="nx">bundle</span><span class="p">().</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:pool&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;client.html&quot;</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">7000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Listening on port 7000&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>That’s it! Save this as index.js. This will serve our webpage and script.
+We will leave this be for now, before we start our server, we’ve got
+other matters to settle. We will use a very basic HTML page. After all,
+we only really need a blank page with two video slots! Here’s client.html.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>MiniRTC<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">html</span><span class="o">,</span><span class="w"> </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">      </span><span class="nt">div</span><span class="p">#</span><span class="nn">videos</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+
+<span class="w">      </span><span class="nt">video</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;videos&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">video</span> <span class="na">autoplay</span> <span class="na">playsinline</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;me&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">video</span> <span class="na">autoplay</span> <span class="na">playsinline</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;notme&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Now, for our client.js. Look how short it is!</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">rtcpool</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rtcpool&#39;</span><span class="p">);</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">signal_socket</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:7001/&quot;</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">signalling</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">rtcpool</span><span class="p">.</span><span class="nx">signalling</span><span class="p">.</span><span class="nx">websocket</span><span class="p">(</span><span class="nx">signal_socket</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">pool</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">rtcpool</span><span class="p">.</span><span class="nx">Pool</span><span class="p">({</span>
+                <span class="s2">&quot;iceServers&quot;</span><span class="o">:</span> <span class="p">[{</span>
+                        <span class="s2">&quot;urls&quot;</span><span class="o">:</span> <span class="p">[</span>
+                                <span class="s2">&quot;stun:stun.l.google.com:19302&quot;</span>
+                        <span class="p">]</span>
+                <span class="p">}]</span>
+        <span class="p">},</span> <span class="nx">signalling</span><span class="p">);</span>
+
+        <span class="kd">const</span> <span class="nx">pool_name</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+        <span class="nx">pool</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">pool_name</span><span class="p">);</span>
+        <span class="nx">navigator</span><span class="p">.</span><span class="nx">mediaDevices</span><span class="p">.</span><span class="nx">getUserMedia</span><span class="p">({</span>
+                <span class="nx">audio</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">video</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">stream</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="kd">const</span> <span class="nx">media</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">rtcpool</span><span class="p">.</span><span class="nx">media</span><span class="p">.</span><span class="nx">RTCStream</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
+                <span class="nx">pool</span><span class="p">.</span><span class="nx">add_media</span><span class="p">(</span><span class="nx">media</span><span class="p">);</span>
+
+                <span class="kd">const</span> <span class="nx">me</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#me&#39;</span><span class="p">);</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">me</span><span class="p">);</span>
+                <span class="nx">me</span><span class="p">.</span><span class="nx">srcObject</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">;</span>
+        <span class="p">});</span>
+
+        <span class="kd">let</span> <span class="nx">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">stream</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">notme</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#notme&#39;</span><span class="p">);</span>
+        <span class="nx">pool</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">connection</span> <span class="o">!==</span> <span class="nx">conn</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">conn</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">connection</span><span class="p">;</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">track</span> <span class="k">of</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">getTracks</span><span class="p">())</span> <span class="p">{</span>
+                                        <span class="nx">track</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+                                <span class="p">}</span>
+                        <span class="p">}</span>
+                        <span class="nx">stream</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">MediaStream</span><span class="p">();</span>
+                        <span class="nx">notme</span><span class="p">.</span><span class="nx">srcObject</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">stream</span><span class="p">.</span><span class="nx">addTrack</span><span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">track</span><span class="p">);</span>
+        <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Now we need to add the PyRTC backend to our project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pyrtc
+</pre></div>
+</div>
+<p>In one terminal window, start the PyRTC test server like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pyrtc.test
+</pre></div>
+</div>
+<p>In another terminal window, start our express server, ensuring
+that you are in the project directory when you run this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ node .
+</pre></div>
+</div>
+<p>Now open two browser windows to <code class="docutils literal notranslate"><span class="pre">http://localhost:7000/test</span></code>
+and see the magic! Of course, make sure you grant access to the
+camera and microphone, otherwise it won’t work. To really help
+sharpen your skills, take a shot at allowing more users to join
+the chat room, with a new video screen showing up for each new user.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to PyRTC’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Isaac Dorenkamp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

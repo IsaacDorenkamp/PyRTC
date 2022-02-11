@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyrtc.pool &mdash; PyRTC 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyrtc.transceiver" href="transceiver.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyRTC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyrtc.pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transceiver.html">pyrtc.transceiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">pyrtc.transport</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyRTC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API Reference</a> &raquo;</li>
+      <li>pyrtc.pool</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/pool.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyrtc.pool">
+<span id="pyrtc-pool"></span><h1>pyrtc.pool<a class="headerlink" href="#module-pyrtc.pool" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.pool.</span></span><span class="sig-name descname"><span class="pre">Pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_async</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool" title="Permalink to this definition"></a></dt>
+<dd><p>Represents a WebRTC connection pool.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.add_endpoint">
+<span class="sig-name descname"><span class="pre">add_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transceiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.add_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Accepts a Transceiver and adds it to the pool as an endpoint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.allows">
+<span class="sig-name descname"><span class="pre">allows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.allows" title="Permalink to this definition"></a></dt>
+<dd><p>A method which returns a boolean
+value telling whether the given
+endpoint is allowed to join this
+pool. Subclasses may return False
+in some cases, blocking certain
+endpoints from joining.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.broadcast">
+<span class="sig-name descname"><span class="pre">broadcast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evt_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evt_data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">exclude</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.broadcast" title="Permalink to this definition"></a></dt>
+<dd><p>Broadcasts the specified event to all connections in the pool,
+except for those whose Transceiver is in <code class="docutils literal notranslate"><span class="pre">exclude</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evt_type</strong> (<em>str</em>) – The type of event to broadcast to the peers.</p></li>
+<li><p><strong>evt_data</strong> (<em>dict</em>) – The event data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.close" title="Permalink to this definition"></a></dt>
+<dd><p>Sends a signal to close all connections in the pool,
+and closes the signalling channels.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.closed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">closed</span></span><a class="headerlink" href="#pyrtc.pool.Pool.closed" title="Permalink to this definition"></a></dt>
+<dd><p>Whether this pool has been closed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.describe" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the description of the specified connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>test</strong> – The unique ID or Transceiver identifying
+the peer connection</p></li>
+<li><p><strong>desc</strong> – The description to assign to the specified
+endpoint. Must be a JSON-serializable dictionary or None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.get_connection">
+<span class="sig-name descname"><span class="pre">get_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.get_connection" title="Permalink to this definition"></a></dt>
+<dd><p>If test is a string, gets a connection by its ID.
+If test is a Transceiver, gets the connection associated with it.
+If no connection is found, None is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test</strong> – The unique ID or transceiver associated with the desired connection.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary with keys ‘socket’ (a Transceiver instance), ‘id’ (the
+unique ID), and ‘description’ (the description of the endpoint).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.get_peer_ids">
+<span class="sig-name descname"><span class="pre">get_peer_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.get_peer_ids" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple of the IDs of all connected peers.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pyrtc.pool.Pool.name" title="Permalink to this definition"></a></dt>
+<dd><p>The pool’s unique name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.Pool.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.Pool.update" title="Permalink to this definition"></a></dt>
+<dd><p>Prunes closed connections and notifies peers of the closure.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.pool.</span></span><span class="sig-name descname"><span class="pre">PoolManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_async</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager" title="Permalink to this definition"></a></dt>
+<dd><p>A class responsible for managing multiple pools.
+An endpoint that wants access to the pool must
+be added to the PoolManager containing that pool
+in order to join it.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.add_endpoint">
+<span class="sig-name descname"><span class="pre">add_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transceiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.add_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an endpoint to this PoolManager. This means
+that this PoolManager will now handle all events
+received from the given endpoint:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transceiver</strong> (<a class="reference internal" href="transceiver.html#pyrtc.transceiver.Transceiver" title="pyrtc.transceiver.Transceiver"><em>Transceiver</em></a>) – The transceiver representing the connection
+to an endpoint.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.add_pool">
+<span class="sig-name descname"><span class="pre">add_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.add_pool" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a pool to the list of available pools
+in this PoolManager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pool</strong> (<a class="reference internal" href="#pyrtc.pool.Pool" title="pyrtc.pool.Pool"><em>Pool</em></a>) – The pool to add.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes this pool manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.get_connection_for">
+<span class="sig-name descname"><span class="pre">get_connection_for</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.get_connection_for" title="Permalink to this definition"></a></dt>
+<dd><p>Like <a class="reference internal" href="#pyrtc.pool.PoolManager.get_pool_for" title="pyrtc.pool.PoolManager.get_pool_for"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pool_for()</span></code></a>, but returns the connection
+information as a dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test</strong> (<a class="reference internal" href="transceiver.html#pyrtc.transceiver.Transceiver" title="pyrtc.transceiver.Transceiver"><em>Transceiver</em></a><em> or </em><em>str</em>) – The Transceiver or connection ID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The connection information if it exists, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.get_pool">
+<span class="sig-name descname"><span class="pre">get_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.get_pool" title="Permalink to this definition"></a></dt>
+<dd><p>Gets a pool by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the pool to get.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pool with the given name, or
+None if it does not exist.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyrtc.pool.Pool" title="pyrtc.pool.Pool">Pool</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.get_pool_for">
+<span class="sig-name descname"><span class="pre">get_pool_for</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.get_pool_for" title="Permalink to this definition"></a></dt>
+<dd><p>Gets a pool by a connection identifier,
+either the Transceiver associated with
+an endpoint or the connection ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test</strong> (<a class="reference internal" href="transceiver.html#pyrtc.transceiver.Transceiver" title="pyrtc.transceiver.Transceiver"><em>Transceiver</em></a><em> or </em><em>str</em>) – The Transceiver or connection ID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pool if one exists, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyrtc.pool.Pool" title="pyrtc.pool.Pool">Pool</a> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.handle_event">
+<span class="sig-name descname"><span class="pre">handle_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.handle_event" title="Permalink to this definition"></a></dt>
+<dd><p>Handles a single event from the
+specified source, returning a list
+of messages and endpoints that should
+be sent in response to the event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>event</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>source</strong> (<a class="reference internal" href="transceiver.html#pyrtc.transceiver.Transceiver" title="pyrtc.transceiver.Transceiver"><em>Transceiver</em></a>) – </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An iterator that provides tuples in the format
+(destination, event_type, event_data) where destination
+is a <code class="xref py py-class docutils literal notranslate"><span class="pre">Transceiver</span></code>, event_type is a str, and
+event_data is a dict</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>iter&lt;tuple&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.remove_pool">
+<span class="sig-name descname"><span class="pre">remove_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.remove_pool" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a pool from this manager. When calling this,
+be sure the pool has been closed, as this method does
+not do this automatically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the pool to close.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the pool exists and was removed,
+False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.pool.PoolManager.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.pool.PoolManager.update" title="Permalink to this definition"></a></dt>
+<dd><p>Handles all messages from clients. Should be
+called soon after new data is available from
+any endpoint handled by this pool manager.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="transceiver.html" class="btn btn-neutral float-right" title="pyrtc.transceiver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Isaac Dorenkamp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

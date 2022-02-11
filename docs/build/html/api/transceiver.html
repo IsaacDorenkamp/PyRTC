@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyrtc.transceiver &mdash; PyRTC 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyrtc.transport" href="transport.html" />
+    <link rel="prev" title="pyrtc.pool" href="pool.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyRTC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pool.html">pyrtc.pool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyrtc.transceiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport.html">pyrtc.transport</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyRTC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API Reference</a> &raquo;</li>
+      <li>pyrtc.transceiver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/transceiver.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyrtc.transceiver">
+<span id="pyrtc-transceiver"></span><h1>pyrtc.transceiver<a class="headerlink" href="#module-pyrtc.transceiver" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.transceiver.Transceiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.transceiver.</span></span><span class="sig-name descname"><span class="pre">Transceiver</span></span><a class="headerlink" href="#pyrtc.transceiver.Transceiver" title="Permalink to this definition"></a></dt>
+<dd><p>Abstract base class for all transceivers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.Transceiver.close">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.Transceiver.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the connection used for sending and receiving data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.Transceiver.is_open">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.Transceiver.is_open" title="Permalink to this definition"></a></dt>
+<dd><p>A method used to check whether the channel
+used to transmit and received data is open.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.Transceiver.receive">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">receive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.Transceiver.receive" title="Permalink to this definition"></a></dt>
+<dd><p>A generator yielding all relevant events at the time it is called.</p>
+<p>Events should be yielded as a 2-tuple (event_type, event_data)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.Transceiver.send">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.Transceiver.send" title="Permalink to this definition"></a></dt>
+<dd><p>A method which sends an event to an endpoint. How the
+data is sent or formatted is defined by individual
+subclasses and is not important as long as it sent somehow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_type</strong> (<em>str</em>) – The type of event to be processed.</p></li>
+<li><p><strong>event_data</strong> (<em>dict</em>) – Data describing the event.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.transceiver.TransceiverManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.transceiver.</span></span><span class="sig-name descname"><span class="pre">TransceiverManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_async</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.TransceiverManager" title="Permalink to this definition"></a></dt>
+<dd><p>A helper class used by <code class="xref py py-class docutils literal notranslate"><span class="pre">Pool</span></code> to
+aggregate events from transceivers and
+easily close down all connections at once.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.TransceiverManager.close_all">
+<span class="sig-name descname"><span class="pre">close_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.TransceiverManager.close_all" title="Permalink to this definition"></a></dt>
+<dd><p>Close all transcievers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.TransceiverManager.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transceiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.TransceiverManager.dispatch" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a transceiver to this manager instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.TransceiverManager.events">
+<span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.TransceiverManager.events" title="Permalink to this definition"></a></dt>
+<dd><p>Used by PoolManager to receive all events from all
+transceivers and handle them.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.transceiver.</span></span><span class="sig-name descname"><span class="pre">WebsocketTransceiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ws</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the connection to the Websocket.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.is_open">
+<span class="sig-name descname"><span class="pre">is_open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.is_open" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the Websocket is open, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.of">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_sock</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.of" title="Permalink to this definition"></a></dt>
+<dd><p>Create a WebSocket transceiver from a
+raw socket. This could be a plain socket
+or one wrapped in an SSL context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_sock</strong> – The socket to create a
+WebsocketTransceiver around.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A WebsocketTransceiver that sends
+data over a Websocket connection through
+raw_sock.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.receive">
+<span class="sig-name descname"><span class="pre">receive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.receive" title="Permalink to this definition"></a></dt>
+<dd><p>Receives data from Websocket, and yields events as 2-tuples
+(as described by <a class="reference internal" href="#pyrtc.transceiver.Transceiver" title="pyrtc.transceiver.Transceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transceiver</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.send" title="Permalink to this definition"></a></dt>
+<dd><p>Sends an event via the Websocket.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_type</strong> (<em>str</em>) – The type of event to be processed.</p></li>
+<li><p><strong>event_data</strong> (<em>dict</em>) – Data describing the event.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyrtc.transceiver.WebsocketTransceiver.socket">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">socket</span></span><a class="headerlink" href="#pyrtc.transceiver.WebsocketTransceiver.socket" title="Permalink to this definition"></a></dt>
+<dd><p>The Websocket instance used by this
+instance to send and receive data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pool.html" class="btn btn-neutral float-left" title="pyrtc.pool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="transport.html" class="btn btn-neutral float-right" title="pyrtc.transport" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Isaac Dorenkamp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

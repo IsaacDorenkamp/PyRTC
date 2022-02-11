@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyrtc.transport &mdash; PyRTC 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="pyrtc.transceiver" href="transceiver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyRTC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pool.html">pyrtc.pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transceiver.html">pyrtc.transceiver</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyrtc.transport</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyRTC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API Reference</a> &raquo;</li>
+      <li>pyrtc.transport</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/transport.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyrtc.transport">
+<span id="pyrtc-transport"></span><h1>pyrtc.transport<a class="headerlink" href="#module-pyrtc.transport" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.transport.EventReceiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.transport.</span></span><span class="sig-name descname"><span class="pre">EventReceiver</span></span><a class="headerlink" href="#pyrtc.transport.EventReceiver" title="Permalink to this definition"></a></dt>
+<dd><p>A helper class to allow multiple
+targets receive events from <a class="reference internal" href="#pyrtc.transport.Websocket" title="pyrtc.transport.Websocket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Websocket</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyrtc.transport.EventReceiver.pending">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pending</span></span><a class="headerlink" href="#pyrtc.transport.EventReceiver.pending" title="Permalink to this definition"></a></dt>
+<dd><p>True if there are events in
+the buffer, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.EventReceiver.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.EventReceiver.post" title="Permalink to this definition"></a></dt>
+<dd><p>Add an event to the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrtc.transport.</span></span><span class="sig-name descname"><span class="pre">Websocket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli_sock</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket" title="Permalink to this definition"></a></dt>
+<dd><p>A class that wraps a socket and
+transmits data over it through
+the WebSocket protocol defined
+in <span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc6455.html"><strong>RFC 6455</strong></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.add_receiver">
+<span class="sig-name descname"><span class="pre">add_receiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket.add_receiver" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a target for received events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>receiver</strong> (<a class="reference internal" href="#pyrtc.transport.EventReceiver" title="pyrtc.transport.EventReceiver"><em>EventReceiver</em></a>) – The event target.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes the WebSocket connection with the specified status
+(1000, the all-ok status code for WebSocket closure)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>status</strong> (<em>int</em>) – The status code to close with.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.close_raw">
+<span class="sig-name descname"><span class="pre">close_raw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket.close_raw" title="Permalink to this definition"></a></dt>
+<dd><p>A safe close function that will cleanly close
+the socket if the WebSocket connection state is
+not open.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.open">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">open</span></span><a class="headerlink" href="#pyrtc.transport.Websocket.open" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the connection is open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.receive">
+<span class="sig-name descname"><span class="pre">receive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket.receive" title="Permalink to this definition"></a></dt>
+<dd><p>Receives all available data from
+socket, then posts all all events
+to all added receivers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrtc.transport.Websocket.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrtc.transport.Websocket.send" title="Permalink to this definition"></a></dt>
+<dd><p>Send data over the WebSocket connection.
+May be a str or bytes, but the ws.proto
+Message counterparts are accepted as well.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="transceiver.html" class="btn btn-neutral float-left" title="pyrtc.transceiver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Isaac Dorenkamp.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
