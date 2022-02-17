@@ -102,8 +102,8 @@ class Pool:
 				'pool': self.name
 			})
 
-			yield from map(lambda conn: (conn['socket'], 'rtc:request_offers', {
-				'for': transceiver.id
+			yield from map(lambda conn: (conn['socket'], 'rtc:peer', {
+				'id': transceiver.id
 			}), filter(lambda conn: conn['id'] != transceiver.id, self._conns.values()))
 
 		else:
@@ -128,7 +128,9 @@ class Pool:
 
 		futs = []
 		for c in closed:
-			futs.append(self.broadcast('rtc:close', { 'uid': c }))
+			# include uid and id to support RTCPool 3.0.0 and 3.0.1
+			# (3.0.0 still uses uid as a holdover from the previous protocol)
+			futs.append(self.broadcast('rtc:close', { 'uid': c, 'id': 'c' }))
 
 		if self._async:
 			return asyncio.gather(*futs)
@@ -151,7 +153,11 @@ class Pool:
 			conn['description'] = desc
 			return self.broadcast('rtc:describe', {
 				'description': desc,
-				'uid': conn['id']
+
+				# Holdover of old protocol from RTCPool 3.0.0,
+				# fixed in version 3.0.1
+				'uid': conn['id'],
+				'id': conn['id']
 			})
 		else:
 			raise ValueError(f"No connection associated with {test}")
@@ -463,30 +469,17 @@ class PoolManager:
 					pool = Pool(_pool, is_async=self._async)
 					self.add_pool(pool)
 					messages = pool.add_endpoint(source)
-
-		elif action == 'offers':
-			local_offer = []
-			for key in data.keys():
-				pool, conn = self._query(key)
-				if conn:
-					local_offer.append((conn['socket'], 'rtc:offer', {
-						'for': source.id,
-						'offer': data[key]
-					}))
-
-			messages = iter(local_offer)
-		elif action == 'answer':
-			target = data.get('for', None)
-			if target:
-				conn = self.get_connection_for(target)
-				if conn:
-					messages = ((conn['socket'], 'rtc:answer', {
-						'for': source.id,
-						'answer': data.get('answer')
-					}),)
+		elif action == 'sdp':
+			target = data.get('to', None)
+			conn = self.get_connection_for(target)
+			if conn:
+				messages = ((conn['socket'], 'rtc:sdp', {
+					'peer': source.id,
+					'description': data.get('description', None)
+				}),)
 			else:
 				messages = ((source, 'rtc:error', {
-					'message': 'Please specify an answer target.'
+					'message': 'Please specify a valid answer target.'
 				}),)
 		elif action == 'candidate':
 			target = data.get('for', None)

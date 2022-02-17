@@ -1,3 +1,7 @@
+# 2.0.0: February 17, 2022
+- Updated to use ssp-v2
+- Maintains compatibility with RTCPool 3.0.0, which still uses the `uid` field in some events
+
 # 1.0.4: February 11, 2022
 - ReadTheDocs build fix
 
