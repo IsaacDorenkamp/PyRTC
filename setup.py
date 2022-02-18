@@ -6,7 +6,7 @@ readme_text = (__dirname__ / "README.md").read_text()
 
 setup(
 	name="pyrtc",
-	version="2.0.0",
+	version="2.0.2",
 	description="Python WebRTC signalling and connection management back-end.",
 	long_description=readme_text,
 	long_description_content_type="text/markdown",

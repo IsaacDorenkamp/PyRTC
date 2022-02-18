@@ -130,7 +130,7 @@ class Pool:
 		for c in closed:
 			# include uid and id to support RTCPool 3.0.0 and 3.0.1
 			# (3.0.0 still uses uid as a holdover from the previous protocol)
-			futs.append(self.broadcast('rtc:close', { 'uid': c, 'id': 'c' }))
+			futs.append(self.broadcast('rtc:close', { 'uid': c, 'id': c }))
 
 		if self._async:
 			return asyncio.gather(*futs)
@@ -158,7 +158,7 @@ class Pool:
 				# fixed in version 3.0.1
 				'uid': conn['id'],
 				'id': conn['id']
-			})
+			}, conn['socket'])
 		else:
 			raise ValueError(f"No connection associated with {test}")
 
