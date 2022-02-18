@@ -5,4 +5,4 @@ ezserver.py
 src/pyrtc.egg-info
 dist
 
-**/*/__pycache__
+**/__pycache__
